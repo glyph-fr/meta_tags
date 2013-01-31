@@ -1,4 +1,3 @@
-require 'meta_tags/page_data_helper'
 module MetaTags
   module Controller
     extend ActiveSupport::Concern

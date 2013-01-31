@@ -3,3 +3,12 @@
 
 en:
   hello: "Hello world"
+  active_record:
+    models:
+      post: Article
+  meta_tags: 
+    controller:
+      posts: 
+        index: 
+          title: Test
+          description: Test description

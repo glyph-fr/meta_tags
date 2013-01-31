@@ -2,6 +2,8 @@ class PostsController < ApplicationController
   meta_tags_from :post
 
   def index
+    set_meta_tag :title, "Test in action"
+    set_meta_tag :description, "Test in action"
     @posts = Post.all
   end
 
@@ -10,6 +12,6 @@ class PostsController < ApplicationController
   end
 
   def filter
-    @post.where('title LIKE ?', "%#{ params[:tag] }%")
+    @posts = Post.where('title LIKE ?', "%#{ params[:tag] }%")
   end
 end

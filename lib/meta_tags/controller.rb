@@ -1,18 +1,26 @@
+require 'meta_tags/page_data_helper'
 module MetaTags
   module Controller
     extend ActiveSupport::Concern
+    include PageDataHelper
 
     module ClassMethods
-      attr_accessor :meta_tags
+      attr_accessor :meta_tags, :model_name
 
       def meta_tags_defaults options
         @meta_tags = Container.new(options)
-        puts self.inspect
+      end
+
+      def meta_tags_from model_name
+        @model_name = model_name.to_s
       end
     end
 
     included do
       helper_method :meta_tags, :meta_tags_container, :set_meta_tag
+      after_filter do 
+        meta_tags_container.reset_changed_status
+      end
     end
 
     def meta_tags_container
@@ -22,6 +30,8 @@ module MetaTags
     end
 
     def meta_tags
+      process_meta_tags
+
       markup = <<-HTML
         <title>#{ meta_tags_container.title }</title>
         <meta name="description" content="#{ meta_tags_container.description }">
@@ -32,6 +42,14 @@ module MetaTags
       HTML
 
       markup.html_safe
+    end
+
+    def process_meta_tags
+      %w(title description image keywords).each do |label|
+        next if meta_tags_container.send("#{ label }_changed?")
+        data = send("process_#{ label }")
+        set_meta_tag label, data if data
+      end
     end
 
     def set_meta_tag key, value

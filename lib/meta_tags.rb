@@ -4,6 +4,20 @@ require 'meta_tags/controller'
 
 
 module MetaTags
+  
+  mattr_accessor :title_methods
+  @@title_methods = %w(title name)
+
+  mattr_accessor :description_methods
+  @@description_methods = %w(description desc)
+
+  mattr_accessor :image_methods
+  @@image_methods = %w(image picture avatar)
+
+  def self.config
+    yield self if block_given?
+  end
+
   ActionController::Base.send(:include, Controller)
 end
 

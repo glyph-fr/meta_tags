@@ -1,8 +1,10 @@
 module MetaTags
   module PageDataHelper
     def process_title
-      if member_action? && instance.respond_to?(:title)
-        return instance.title
+      if member_action?
+        MetaTags.title_methods.each do |method|
+          return instance.send(method) if instance.respond_to?(method)
+        end
       end
 
       if (action_name = action_i18n(:title))
@@ -15,8 +17,10 @@ module MetaTags
     end
 
     def process_description
-      if member_action? && instance.respond_to?(:description)
-        return instance.description
+      if member_action? 
+        MetaTags.description_methods.each do |method|
+          return instance.send(method) if instance.respond_to?(:description)
+        end
       end
 
       if (action_name = action_i18n(:description))
@@ -25,8 +29,10 @@ module MetaTags
     end
 
     def process_image
-      if member_action? && instance.respond_to?(:description)
-        return instance.image.url
+      if member_action? 
+        MetaTags.image_methods.each do |method|
+          return instance.send(method).url if instance.respond_to?(:image)
+        end
       end
       return meta_tags_container.default_image
     end

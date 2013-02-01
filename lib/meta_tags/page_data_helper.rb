@@ -54,33 +54,5 @@ module MetaTags
     def instance
       @instance ||= self.instance_variable_get "@#{ self.class.model_name }"
     end
-
-    def process_meta_tags
-      if params[:id]
-        
-        %w(title description image).each do |label|
-          if instance.respond_to? label
-            value = label == "image" ? instance.send(label).url : instance.send(label)
-            set_meta_tag label, value unless meta_tags_container.send("#{ label }_changed?")
-          end
-        end
-      else
-        %w(title description).each do |label|
-          unless meta_tags_container.send("#{label}_changed?")
-            translation = 
-            
-            if label == 'title' && !translation
-              translation = I18n.t("active_record.models.#{ self.class.model_name }", default: "").presence
-              translation.pluralize if translation
-            end
-
-            set_meta_tag label, translation if translation
-          end
-        end
-        
-        set_meta_tag :image, meta_tags_container.default_image unless meta_tags_container.image_changed?
-      end
-    end
-
   end
 end

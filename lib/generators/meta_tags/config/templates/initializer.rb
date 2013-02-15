@@ -8,6 +8,6 @@ MetaTags.config do |config|
   # Default decsription methods to be checked for description
   # config.description_methods = %w(description desc)
 
-  # Default description methods to be checked for description
+  # Default image methods to be checked for image
   # config.image_methods = %w(image picture avatar)
 end

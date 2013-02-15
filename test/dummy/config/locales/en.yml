@@ -3,7 +3,7 @@
 
 en:
   hello: "Hello world"
-  active_record:
+  activerecord:
     models:
       post: Article
   meta_tags: 

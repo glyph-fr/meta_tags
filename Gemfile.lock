@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    meta_tags (0.0.1)
+    meta_tags (0.1.0)
       rails (~> 3.2.11)
 
 GEM

@@ -44,6 +44,7 @@ module MetaTags
     end
 
     def process_meta_tags
+      p meta_tags_container.title
       %w(title description image keywords).each do |label|
         next if meta_tags_container.send("#{ label }_changed?")
         data = send("process_#{ label }")

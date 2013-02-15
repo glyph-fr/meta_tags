@@ -2,9 +2,9 @@
 
 Meta tags allows a Rails application to include meta tags in HTML, depending on the action. Content can be set by I18n locales, Models or defined in ApplicationController.
 
-== Installing
+## Installing
 
-1. Add this line in your Gemfile
+1. Add this line to your Gemfile
 ```ruby
 gem 'meta_tags', git: "git://github.com/vala/meta_tags.git"
 ```
@@ -14,13 +14,13 @@ gem 'meta_tags', git: "git://github.com/vala/meta_tags.git"
 rails generate meta_tags:config
 ```
 
-== Defining default values
-## In your ApplicationController
+## Defining default values
+### In your ApplicationController
 ```ruby
 gem 'meta_tags', git: "git://github.com/vala/meta_tags.git"
 ```
 
-## In your locales
+### In your locales
 ```yaml
 en:
   meta_tags: 
@@ -31,7 +31,7 @@ en:
           description: Test description
 ```
 
-## In a Controller
+### In a Controller
 You can use the helper meta_tags_from to use data from the associated model
 <tt>app/controllers/posts_controller.rb</tt>
 ```ruby
@@ -56,7 +56,23 @@ class Post < ActiveRecord::Base
 end
 ```
 
-## Overwrite in a controller
+Used methods can be defined in the initializer <tt>config/initializers/meta_tags.rb</tt>
+```ruby
+MetaTags.config do |config|
+
+  # Default title methods to be checked for title
+  # config.title_methods = %w(title name)
+
+  # Default decsription methods to be checked for description
+  # config.description_methods = %w(description desc)
+
+  # Default description methods to be checked for image
+  # config.image_methods = %w(image picture avatar)
+end
+```
+
+
+### Overwrite in a controller
 ```ruby
 class HomeController < ApplicationController
   def index
@@ -65,7 +81,7 @@ class HomeController < ApplicationController
 end
 ```
 
-== View helper
+## View helper
 ```haml
 !!!
 %html

@@ -44,11 +44,16 @@ module MetaTags
     end
 
     def process_meta_tags
-      p meta_tags_container.title
+      p meta_tags_container.title_changed?
       %w(title description image keywords).each do |label|
         next if meta_tags_container.send("#{ label }_changed?")
         data = send("process_#{ label }")
-        set_meta_tag label, data if data
+        if data
+          set_meta_tag label, data
+        else
+          set_meta_tag label, meta_tags_container.send("default_#{label}")
+        end
+        
       end
     end
 

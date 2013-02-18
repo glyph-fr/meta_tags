@@ -11,10 +11,12 @@ module MetaTags
         return action_name
       end
 
-      if (translation = I18n.t("activerecord.models.#{ self.class.model_name }.other", default: "").presence)
-        return translation
-      elsif (translation = I18n.t("activerecord.models.#{ self.class.model_name }", default: "").presence)
-        return translation.pluralize
+      if self.class.model_name
+        if (translation = I18n.t("activerecord.models.#{ self.class.model_name }.other", default: "").presence)
+          return translation
+        elsif (translation = I18n.t("activerecord.models.#{ self.class.model_name }", default: "").presence)
+          return translation.pluralize
+        end
       end
     end
 

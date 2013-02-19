@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Simple gem to handle basical title, meta tags and og: tags"
   s.description = "Simple gem to handle basical title, meta tags and og: tags"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.11"

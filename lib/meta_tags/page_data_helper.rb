@@ -23,7 +23,7 @@ module MetaTags
     def process_description
       if member_action? 
         MetaTags.description_methods.each do |method|
-          return instance.send(method) if instance.respond_to?(:description)
+          return instance.send(method) if instance.respond_to?(method)
         end
       end
 
@@ -35,7 +35,8 @@ module MetaTags
     def process_image
       if member_action? 
         MetaTags.image_methods.each do |method|
-          return instance.send(method).url if instance.respond_to?(:image)
+
+          return instance.send(method).url if instance.respond_to?(method) && instance.send(method)
         end
       end
       return meta_tags_container.default_image

@@ -36,7 +36,7 @@ module MetaTags
         <meta name="description" content="#{ meta_tags_container.description }">
         <meta name="keywords" content="#{ meta_tags_container.keywords }">
         <meta name="og:title" content="#{ meta_tags_container.title }">
-        <meta name="og:description" content="#{ meta_tags_container.description }">
+        <meta name="og:description" content="#{ meta_tags_container.description.gsub('"', '\"') }">
         <meta name="og:image" content="#{ meta_tags_container.image }">
       HTML
 

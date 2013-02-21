@@ -35,7 +35,6 @@ module MetaTags
     def process_image
       if member_action? 
         MetaTags.image_methods.each do |method|
-
           return instance.send(method).url if instance.respond_to?(method) && instance.send(method)
         end
       end

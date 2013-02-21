@@ -31,12 +31,14 @@ module MetaTags
     def meta_tags
       process_meta_tags
 
+      description = meta_tags_container.description.gsub(/<[^>]+?>/, " ")
+      
       markup = <<-HTML
         <title>#{ meta_tags_container.title }</title>
-        <meta name="description" content="#{ meta_tags_container.description }">
+        <meta name="description" content="#{ description }">
         <meta name="keywords" content="#{ meta_tags_container.keywords }">
         <meta name="og:title" content="#{ meta_tags_container.title }">
-        <meta name="og:description" content="#{ meta_tags_container.description.gsub('"', '\"') }">
+        <meta name="og:description" content="#{ description }">
         <meta name="og:image" content="#{ meta_tags_container.image }">
       HTML
 

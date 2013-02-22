@@ -30,6 +30,10 @@ module MetaTags
       @title_changed = true
       @title = "#{ value } - #{ default_title }"
     end
+
+    def description
+      @description.gsub(/<[^>]+?>/, " ")
+    end
     
     def reset_changed_status
       %w(title description keywords image).each do |label|

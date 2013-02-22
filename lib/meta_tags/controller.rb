@@ -29,37 +29,52 @@ module MetaTags
     end
 
     def meta_tags *providers
-      process_meta_tags
+      options = providers.pop if providers.last.is_a? Hash
+      charset = options[:encoding] rescue 'utf-8'
 
-      description = meta_tags_container.description.gsub(/<[^>]+?>/, " ")
+      process_meta_tags
       
+      # Compulsory meta tags
       markup = <<-HTML
         <title>#{ meta_tags_container.title }</title>
-        <meta name="description" content="#{ description }">
+        <meta charset="#{ charset }">
         <meta name="keywords" content="#{ meta_tags_container.keywords }">
-        <meta name="og:title" content="#{ meta_tags_container.title }">
-        <meta name="og:description" content="#{ description }">
-        <meta name="og:image" content="#{ meta_tags_container.image }">
       HTML
 
-      # providers.each do |provider|
-      #   markup << markups_from_provider provider
-      # end
+      # Default meta tags
+      markup += markups_from_provider
+
+      # Meta tags by provider
+      providers.each do |provider|
+        str = markups_from_provider provider
+        markup += str if !markup.include?(str)
+      end
 
       markup.html_safe
     end
 
-    # def markups_from_provider provider
-    #   if !provider.is_a? Hash
-    #     case provider
-    #       when 'facebook' || 'opengraph'
-            
-    #       when 'twitter'
-    #     end
-    #   else
-
-    #   end
-    # end
+    def markups_from_provider provider=:default
+      case provider.to_sym
+        when :open_graph
+          title = "property=\"og:title\""
+          description = "property=\"og:description\""
+          image = "property=\"og:image\""
+        when :twitter
+          title = "name=\"twitter:title\""
+          description = "name=\"twitter:description\""
+          image = "name=\"twitter:image\""
+        else
+          description = "name=\"description\""
+          image = "name=\"image\""
+      end
+      result = ''
+      
+      result += "<meta #{ title } content=\"#{ meta_tags_container.title }\">" if title
+      result += "<meta #{ description } content=\"#{ meta_tags_container.description }\">" if description
+      result += "<meta #{ image } content=\"#{ meta_tags_container.image }\">" if image
+      
+      result
+    end
 
     def process_meta_tags
       %w(title description image keywords).each do |label|

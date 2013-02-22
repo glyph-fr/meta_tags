@@ -28,7 +28,7 @@ module MetaTags
       }.meta_tags
     end
 
-    def meta_tags
+    def meta_tags *providers
       process_meta_tags
 
       description = meta_tags_container.description.gsub(/<[^>]+?>/, " ")
@@ -42,8 +42,24 @@ module MetaTags
         <meta name="og:image" content="#{ meta_tags_container.image }">
       HTML
 
+      # providers.each do |provider|
+      #   markup << markups_from_provider provider
+      # end
+
       markup.html_safe
     end
+
+    # def markups_from_provider provider
+    #   if !provider.is_a? Hash
+    #     case provider
+    #       when 'facebook' || 'opengraph'
+            
+    #       when 'twitter'
+    #     end
+    #   else
+
+    #   end
+    # end
 
     def process_meta_tags
       %w(title description image keywords).each do |label|
@@ -54,9 +70,9 @@ module MetaTags
         else
           set_meta_tag label, meta_tags_container.send("default_#{label}")
         end
-        
       end
     end
+
 
     def set_meta_tag key, value
       meta_tags_container.send("#{ key }=", value)

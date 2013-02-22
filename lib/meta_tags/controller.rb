@@ -42,18 +42,20 @@ module MetaTags
       HTML
 
       # Default meta tags
-      markup += markups_from_provider
+      markup += markup_from_provider
 
       # Meta tags by provider
       providers.each do |provider|
-        str = markups_from_provider provider
+        str = markup_from_provider provider
+
+        # Prevents same meta tags added twice
         markup += str if !markup.include?(str)
       end
 
       markup.html_safe
     end
 
-    def markups_from_provider provider=:default
+    def markup_from_provider provider=:default
       case provider.to_sym
         when :open_graph
           title = "property=\"og:title\""

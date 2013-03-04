@@ -14,8 +14,8 @@ module MetaTags
           @#{ label } = value
         end
 
-        def #{ label }_changed? 
-          !!@#{ label }_changed   
+        def #{ label }_changed?
+          !!@#{ label }_changed
         end
       CLASS
     end
@@ -28,13 +28,17 @@ module MetaTags
 
     def title=(value)
       @title_changed = true
-      @title = "#{ value } - #{ default_title }"
+      if default_title == value
+        @title = default_title
+      else
+        @title = "#{ value } - #{ default_title }"
+      end
     end
 
     def description
       @description.gsub(/<[^>]+?>/, " ")
     end
-    
+
     def reset_changed_status
       %w(title description keywords image).each do |label|
         self.send("#{ label }_changed=", false)

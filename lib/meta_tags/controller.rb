@@ -18,7 +18,7 @@ module MetaTags
     included do
       helper_method :meta_tags, :meta_tags_container, :set_meta_tag
       after_filter do 
-        meta_tags_container.reset_changed_status
+        meta_tags_container.reset_changed_status if meta_tags_container
       end
     end
 
@@ -67,7 +67,6 @@ module MetaTags
           image = "name=\"twitter:image\""
         else
           description = "name=\"description\""
-          image = "name=\"image\""
       end
       result = ''
       

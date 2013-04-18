@@ -17,7 +17,12 @@ rails generate meta_tags:config
 ## Defining default values
 ### In your ApplicationController
 ```ruby
-gem 'meta_tags', git: "git://github.com/vala/meta_tags.git"
+  meta_tags_defaults(
+    title: "My title",
+    description: "My description",
+    keywords: "posts, blog",
+    image: "/assets/illustration.jpg"
+  )
 ```
 
 ### In your locales
@@ -51,7 +56,7 @@ end
 <tt>app/models/post.rb</tt>
 ```ruby
 class Post < ActiveRecord::Base
-  attr_accessible :description, :tags, :title, :image
+  attr_accessible :description, :title, :image
   has_attached_file :image
 end
 ```

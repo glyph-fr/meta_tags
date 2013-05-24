@@ -49,10 +49,6 @@ module MetaTags
 
     end
 
-    def process_author
-
-    end
-
     private
 
     def member_action?

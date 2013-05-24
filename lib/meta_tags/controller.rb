@@ -38,8 +38,7 @@ module MetaTags
       markup = <<-HTML
         <title>#{ meta_tags_container.title }</title>
         <meta charset="#{ charset }">
-        <meta rel="author" content="#{ meta_tags_container.author }">
-        <meta rel="publisher" content="GLYPH">
+        <meta name="publisher" content="GLYPH">
         <meta property="og:type" content="website">
         <meta property="og:url" content="#{ meta_tags_container.url }">
         <meta property="og:site_name" content="#{ meta_tags_container.site_name }">
@@ -84,7 +83,7 @@ module MetaTags
     end
 
     def process_meta_tags
-      %w(title description image url site_name author).each do |label|
+      %w(title description image url site_name).each do |label|
         next if meta_tags_container.send("#{ label }_changed?")
         data = send("process_#{ label }")
         if data

@@ -1,9 +1,9 @@
 module MetaTags
   class Container
-    attr_accessor :default_title, :default_description, :default_keywords,
-      :default_image, :title_changed, :description_changed, :keywords_changed, :image_changed
+    attr_accessor :default_title, :default_description, :default_image, :default_url, :default_site_name, :default_author,
+     :title_changed, :description_changed, :image_changed, :url_changed, :site_name_changed, :author_changed
 
-    %w(title description keywords image).each do |label|
+    %w(title description image url site_name author).each do |label|
       class_eval <<-CLASS
         def #{ label }
           @#{ label } || default_#{ label }
@@ -40,7 +40,7 @@ module MetaTags
     end
 
     def reset_changed_status
-      %w(title description keywords image).each do |label|
+      %w(title description image url site_name author).each do |label|
         self.send("#{ label }_changed=", false)
       end
     end

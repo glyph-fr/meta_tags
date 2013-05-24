@@ -21,7 +21,7 @@ module MetaTags
     end
 
     def process_description
-      if member_action? 
+      if member_action?
         MetaTags.description_methods.each do |method|
           return instance.send(method) if instance.respond_to?(method)
         end
@@ -33,7 +33,7 @@ module MetaTags
     end
 
     def process_image
-      if member_action? 
+      if member_action?
         MetaTags.image_methods.each do |method|
           return instance.send(method).url if instance.respond_to?(method) && instance.send(method)
         end
@@ -41,7 +41,15 @@ module MetaTags
       return meta_tags_container.default_image
     end
 
-    def process_keywords
+    def process_url
+      @url = "#{request.original_url}"
+    end
+
+    def process_site_name
+
+    end
+
+    def process_author
 
     end
 

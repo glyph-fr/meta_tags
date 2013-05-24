@@ -17,7 +17,7 @@ module MetaTags
 
     included do
       helper_method :meta_tags, :meta_tags_container, :set_meta_tag
-      after_filter do 
+      after_filter do
         meta_tags_container.reset_changed_status if meta_tags_container
       end
     end
@@ -33,12 +33,16 @@ module MetaTags
       charset = options[:encoding] rescue 'utf-8'
 
       process_meta_tags
-      
+
       # Compulsory meta tags
       markup = <<-HTML
         <title>#{ meta_tags_container.title }</title>
         <meta charset="#{ charset }">
-        <meta name="keywords" content="#{ meta_tags_container.keywords }">
+        <meta name="author" content="#{ meta_tags_container.author }">
+        <meta name="publisher" content="GLYPH">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="#{ meta_tags_container.url }">
+        <meta property="og:site_name" content="#{ meta_tags_container.site_name }">
       HTML
 
       # Default meta tags
@@ -66,19 +70,21 @@ module MetaTags
           description = "name=\"twitter:description\""
           image = "name=\"twitter:image\""
         else
-          description = "name=\"description\""
+          title = "property=\"og:title\""
+          description = "property=\"og:description\""
+          image = "property=\"og:image\""
       end
       result = ''
-      
+
       result += "<meta #{ title } content=\"#{ meta_tags_container.title }\">" if title
       result += "<meta #{ description } content=\"#{ meta_tags_container.description }\">" if description
       result += "<meta #{ image } content=\"#{ meta_tags_container.image }\">" if image
-      
+
       result
     end
 
     def process_meta_tags
-      %w(title description image keywords).each do |label|
+      %w(title description image url site_name author).each do |label|
         next if meta_tags_container.send("#{ label }_changed?")
         data = send("process_#{ label }")
         if data

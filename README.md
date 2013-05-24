@@ -20,7 +20,6 @@ rails generate meta_tags:config
   meta_tags_defaults(
     title: "My title",
     description: "My description",
-    keywords: "posts, blog",
     image: "/assets/illustration.jpg"
   )
 ```
@@ -28,10 +27,10 @@ rails generate meta_tags:config
 ### In your locales
 ```yaml
 en:
-  meta_tags: 
+  meta_tags:
     controller:
-      posts: 
-        index: 
+      posts:
+        index:
           title: Test
           description: Test description
 ```

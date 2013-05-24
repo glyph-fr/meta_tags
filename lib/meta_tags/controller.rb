@@ -38,8 +38,8 @@ module MetaTags
       markup = <<-HTML
         <title>#{ meta_tags_container.title }</title>
         <meta charset="#{ charset }">
-        <meta name="author" content="#{ meta_tags_container.author }">
-        <meta name="publisher" content="GLYPH">
+        <meta rel="author" content="#{ meta_tags_container.author }">
+        <meta rel="publisher" content="GLYPH">
         <meta property="og:type" content="website">
         <meta property="og:url" content="#{ meta_tags_container.url }">
         <meta property="og:site_name" content="#{ meta_tags_container.site_name }">

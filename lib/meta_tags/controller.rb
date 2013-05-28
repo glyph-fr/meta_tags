@@ -16,7 +16,9 @@ module MetaTags
     end
 
     included do
-      helper_method :meta_tags, :meta_tags_container, :set_meta_tag
+      helper_method :meta_tags, :meta_tags_container, :set_meta_tag,
+        :meta_tags_data
+
       after_filter do
         meta_tags_container.reset_changed_status if meta_tags_container
       end
@@ -28,20 +30,24 @@ module MetaTags
       }.meta_tags
     end
 
+    def meta_tags_data
+      process_meta_tags
+      meta_tags_container
+    end
+
     def meta_tags *providers
       options = providers.pop if providers.last.is_a? Hash
       charset = options[:encoding] rescue 'utf-8'
 
-      process_meta_tags
-
+      data = meta_tags_data
       # Compulsory meta tags
       markup = <<-HTML
-        <title>#{ meta_tags_container.title }</title>
+        <title>#{ data.title }</title>
         <meta charset="#{ charset }">
         <meta name="publisher" content="GLYPH">
         <meta property="og:type" content="website">
-        <meta property="og:url" content="#{ meta_tags_container.url }">
-        <meta property="og:site_name" content="#{ meta_tags_container.site_name }">
+        <meta property="og:url" content="#{ data.url }">
+        <meta property="og:site_name" content="#{ data.site_name }">
       HTML
 
       # Default meta tags
@@ -93,7 +99,6 @@ module MetaTags
         end
       end
     end
-
 
     def set_meta_tag key, value
       meta_tags_container.send("#{ key }=", value)

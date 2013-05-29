@@ -45,7 +45,8 @@ module MetaTags
         <title>#{ data.title }</title>
         <meta charset="#{ charset }">
         <meta name="publisher" content="GLYPH">
-        <meta property="og:type" content="website">
+        <meta name="keywords" content="#{ data.keywords }">
+        <meta property="og:type" content="#{ data.type }">
         <meta property="og:url" content="#{ data.url }">
         <meta property="og:site_name" content="#{ data.site_name }">
       HTML
@@ -89,7 +90,7 @@ module MetaTags
     end
 
     def process_meta_tags
-      %w(title description image url site_name).each do |label|
+      %w(title description image url site_name keywords type).each do |label|
         next if meta_tags_container.send("#{ label }_changed?")
         data = send("process_#{ label }")
         if data

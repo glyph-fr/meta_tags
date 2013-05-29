@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   meta_tags_defaults(
     title: "Car Wash Pro",
     description: "Wash your car 356 days a year for 1$",
-    image: "/assets/illustration.jpg"
+    keywords: "wash car, carwash, car washing, cheap car washing",
+    image: "/assets/illustration.jpg",
+    type: 'Web Site'
+    site_name: 'CWP'
   )
 end

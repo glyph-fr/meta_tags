@@ -76,8 +76,8 @@ module MetaTags
           description = "name=\"twitter:description\""
           image = "name=\"twitter:image\""
         else
-          title = "property=\"og:title\""
-          description = "property=\"og:description\""
+          title = "name=\"title\""
+          description = "name=\"description\""
           image = "property=\"og:image\""
       end
       result = ''

@@ -20,7 +20,14 @@ rails generate meta_tags:config
   meta_tags_defaults(
     title: "My title",
     description: "My description",
+    keywords: Keywords,
     image: "/assets/illustration.jpg"
+    # Facebook
+    site_name: 'Mysite',
+    type: 'website',
+    # Twitter
+    site: '@Mysite',
+    card: 'summary, photo, gallery, product, app, player'
   )
 ```
 
@@ -91,5 +98,5 @@ end
 %html
   %head
     = stylesheet_link_tag "application"
-    = meta_tags
+    = meta_tags :open_graph, :twitter
 ```

@@ -54,6 +54,14 @@ module MetaTags
 
     end
 
+    def process_site
+
+    end
+
+    def process_card
+
+    end
+
     def process_keywords
 
     end

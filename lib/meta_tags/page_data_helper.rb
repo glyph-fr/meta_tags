@@ -77,7 +77,9 @@ module MetaTags
     end
 
     def instance
-      @instance ||= self.instance_variable_get "@#{ self.class.model_name }"
+      @instance ||= if self.class.model_name.presence
+        self.instance_variable_get "@#{ self.class.model_name }"
+      end
     end
   end
 end

@@ -43,9 +43,7 @@ module MetaTags
         <title>#{ data.title }</title>
         <meta charset="#{ charset }">
         <meta name="publisher" content="GLYPH">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="#{ data.url }">
-        <meta property="og:site_name" content="#{ data.site_name }">
+        <meta name="keywords" content="#{ data.keywords }">
       HTML
 
       # Default meta tags
@@ -68,26 +66,36 @@ module MetaTags
           title = "property=\"og:title\""
           description = "property=\"og:description\""
           image = "property=\"og:image\""
+          type = "property=\"og:type\""
+          url = "property=\"og:url\""
+          site_name = "property=\"og:site_name\""
         when :twitter
           title = "name=\"twitter:title\""
           description = "name=\"twitter:description\""
           image = "name=\"twitter:image\""
+          url = "name=\"twitter:url\""
+          site = "name=\"twitter:site\""
+          card = "name=\"twitter:card\""
         else
-          title = "property=\"og:title\""
-          description = "property=\"og:description\""
-          image = "property=\"og:image\""
+          title = "name=\"title\""
+          description = "name=\"description\""
       end
       result = ''
 
       result += "<meta #{ title } content=\"#{ meta_tags_container.title }\">" if title
       result += "<meta #{ description } content=\"#{ meta_tags_container.description }\">" if description
       result += "<meta #{ image } content=\"#{ meta_tags_container.image }\">" if image
+      result += "<meta #{ type } content=\"#{ meta_tags_container.type }\">" if type
+      result += "<meta #{ url } content=\"#{ meta_tags_container.url }\">" if url
+      result += "<meta #{ site_name } content=\"#{ meta_tags_container.site_name }\">" if site_name
+      result += "<meta #{ site } content=\"#{ meta_tags_container.site }\">" if site
+      result += "<meta #{ card } content=\"#{ meta_tags_container.card }\">" if card
 
       result
     end
 
     def process_meta_tags
-      %w(title description image url site_name).each do |label|
+      %w(title description image url site_name keywords type card site).each do |label|
         next if meta_tags_container.send("#{ label }_changed?")
         data = send("process_#{ label }")
         if data

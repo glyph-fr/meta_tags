@@ -46,7 +46,23 @@ module MetaTags
       @url = "#{request.original_url}"
     end
 
+    def process_type
+
+    end
+
     def process_site_name
+
+    end
+
+    def process_site
+
+    end
+
+    def process_card
+
+    end
+
+    def process_keywords
 
     end
 

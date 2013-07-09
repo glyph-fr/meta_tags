@@ -25,9 +25,7 @@ module MetaTags
     end
 
     def meta_tags_container
-      @_meta_tags_container ||= self.class.ancestors.find { |klass|
-        klass.to_s == "ApplicationController"
-      }.meta_tags
+      @_meta_tags_container ||= ::ApplicationController.meta_tags
     end
 
     def meta_tags_data

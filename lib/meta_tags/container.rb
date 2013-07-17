@@ -4,9 +4,9 @@ module MetaTags
      :default_url, :default_site_name, :default_keywords, :default_type,
      :title_changed, :description_changed, :image_changed, :url_changed,
      :site_name_changed, :keywords_changed, :type_changed, :site_changed,
-     :default_site, :card_changed, :default_card
+     :default_site, :card_changed, :default_card, :default_publisher, :publisher_changed
 
-    %w(title description image url site_name keywords type site card).each do |label|
+    %w(title description image url site_name keywords type site card publisher).each do |label|
       class_eval <<-CLASS
         def #{ label }
           @#{ label } || default_#{ label }
@@ -43,7 +43,7 @@ module MetaTags
     end
 
     def reset_changed_status
-      %w(title description image url site_name keywords type site card).each do |label|
+      %w(title description image url site_name keywords type site card publisher).each do |label|
         self.send("#{ label }_changed=", false)
       end
     end

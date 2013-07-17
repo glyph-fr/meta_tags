@@ -4,12 +4,12 @@ require 'meta_tags/controller'
 
 
 module MetaTags
-  
+
   mattr_accessor :title_methods
   @@title_methods = %w(title name)
 
   mattr_accessor :description_methods
-  @@description_methods = %w(description desc)
+  @@description_methods = %w(description desc content)
 
   mattr_accessor :image_methods
   @@image_methods = %w(image picture avatar)

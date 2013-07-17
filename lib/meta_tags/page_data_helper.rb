@@ -66,6 +66,10 @@ module MetaTags
 
     end
 
+    def process_publisher
+
+    end
+
     private
 
     def member_action?

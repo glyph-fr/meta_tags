@@ -42,7 +42,7 @@ module MetaTags
       markup = <<-HTML
         <title>#{ data.title }</title>
         <meta charset="#{ charset }">
-        <meta name="publisher" content="GLYPH">
+        <meta name="publisher" content="#{ data.publisher }">
         <meta name="keywords" content="#{ data.keywords }">
       HTML
 
@@ -95,7 +95,7 @@ module MetaTags
     end
 
     def process_meta_tags
-      %w(title description image url site_name keywords type card site).each do |label|
+      %w(title description image url site_name keywords type card site publisher).each do |label|
         next if meta_tags_container.send("#{ label }_changed?")
         data = send("process_#{ label }")
         if data

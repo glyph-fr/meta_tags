@@ -6,7 +6,11 @@ module MetaTags
      :site_name_changed, :keywords_changed, :type_changed, :site_changed,
      :default_site, :card_changed, :default_card, :default_publisher, :publisher_changed
 
-    %w(title description image url site_name keywords type site card publisher).each do |label|
+    TAGS_LIST = %w(
+      title description image url site_name keywords type site card publisher
+    )
+
+    TAGS_LIST.each do |label|
       class_eval <<-CLASS
         def #{ label }
           @#{ label } || default_#{ label }
@@ -39,11 +43,11 @@ module MetaTags
     end
 
     def description
-      @description.gsub(/<[^>]+?>/, " ")
+      @description && @description.gsub(/<[^>]+?>/, " ")
     end
 
     def reset_changed_status
-      %w(title description image url site_name keywords type site card publisher).each do |label|
+      TAGS_LIST.each do |label|
         self.send("#{ label }_changed=", false)
       end
     end

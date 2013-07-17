@@ -95,7 +95,7 @@ module MetaTags
     end
 
     def process_meta_tags
-      %w(title description image url site_name keywords type card site publisher).each do |label|
+      Container::TAGS_LIST.each do |label|
         next if meta_tags_container.send("#{ label }_changed?")
         data = send("process_#{ label }")
         if data
@@ -106,8 +106,10 @@ module MetaTags
       end
     end
 
-    def set_meta_tag key, value
-      meta_tags_container.send("#{ key }=", value)
+    def set_meta_tag key, value, options = {}
+      if value.presence && !options[:force]
+        meta_tags_container.send("#{ key }=", value)
+      end
     end
   end
 end

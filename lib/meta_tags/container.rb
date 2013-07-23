@@ -13,7 +13,8 @@ module MetaTags
     TAGS_LIST.each do |label|
       class_eval <<-CLASS
         def #{ label }
-          @#{ label } || default_#{ label }
+          tag = @#{ label } || default_#{ label }
+          tag && Sanitize.clean(tag)
         end
 
         def #{ label }=(value)
@@ -42,9 +43,6 @@ module MetaTags
       end
     end
 
-    def description
-      @description && @description.gsub(/<[^>]+?>/, " ")
-    end
 
     def reset_changed_status
       TAGS_LIST.each do |label|

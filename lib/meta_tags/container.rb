@@ -13,8 +13,7 @@ module MetaTags
     TAGS_LIST.each do |label|
       class_eval <<-CLASS
         def #{ label }
-          tag = @#{ label } || default_#{ label }
-          tag && Sanitize.clean(tag)
+          @#{ label } || default_#{ label }
         end
 
         def #{ label }=(value)

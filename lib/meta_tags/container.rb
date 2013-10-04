@@ -1,3 +1,5 @@
+require "sanitize"
+
 module MetaTags
   class Container
     attr_accessor :default_title, :default_description, :default_image,
@@ -13,7 +15,7 @@ module MetaTags
     TAGS_LIST.each do |label|
       class_eval <<-CLASS
         def #{ label }
-          @#{ label } || default_#{ label }
+          Sanitize.clean(@#{ label } || default_#{ label })
         end
 
         def #{ label }=(value)

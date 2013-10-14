@@ -62,34 +62,33 @@ module MetaTags
 
     def markup_from_provider provider=:default
       case provider.to_sym
-        when :open_graph
-          title = "property=\"og:title\""
-          description = "property=\"og:description\""
-          image = "property=\"og:image\""
-          type = "property=\"og:type\""
-          url = "property=\"og:url\""
-          site_name = "property=\"og:site_name\""
-        when :twitter
-          title = "name=\"twitter:title\""
-          description = "name=\"twitter:description\""
-          image = "name=\"twitter:image\""
-          url = "name=\"twitter:url\""
-          site = "name=\"twitter:site\""
-          card = "name=\"twitter:card\""
-        else
-          title = "name=\"title\""
-          description = "name=\"description\""
+      when :open_graph
+        title = "property=\"og:title\""
+        description = "property=\"og:description\""
+        image = "property=\"og:image\""
+        type = "property=\"og:type\""
+        url = "property=\"og:url\""
+        site_name = "property=\"og:site_name\""
+      when :twitter
+        title = "name=\"twitter:title\""
+        description = "name=\"twitter:description\""
+        image = "name=\"twitter:image\""
+        url = "name=\"twitter:url\""
+        site = "name=\"twitter:site\""
+        card = "name=\"twitter:card\""
+      else
+        description = "name=\"description\""
       end
       result = ''
 
-      result += "<meta #{ title } content=\"#{ meta_tags_container.title }\">" if title
-      result += "<meta #{ description } content=\"#{ meta_tags_container.description }\">" if description
-      result += "<meta #{ image } content=\"#{ meta_tags_container.image }\">" if image
-      result += "<meta #{ type } content=\"#{ meta_tags_container.type }\">" if type
-      result += "<meta #{ url } content=\"#{ meta_tags_container.url }\">" if url
-      result += "<meta #{ site_name } content=\"#{ meta_tags_container.site_name }\">" if site_name
-      result += "<meta #{ site } content=\"#{ meta_tags_container.site }\">" if site
-      result += "<meta #{ card } content=\"#{ meta_tags_container.card }\">" if card
+      result += "<meta #{ title } content=\"#{ meta_tags_container.title }\">\n" if title
+      result += "<meta #{ description } content=\"#{ meta_tags_container.description }\">\n" if description
+      result += "<meta #{ image } content=\"#{ meta_tags_container.image }\">\n" if image
+      result += "<meta #{ type } content=\"#{ meta_tags_container.type }\">\n" if type
+      result += "<meta #{ url } content=\"#{ meta_tags_container.url }\">\n" if url
+      result += "<meta #{ site_name } content=\"#{ meta_tags_container.site_name }\">\n" if site_name
+      result += "<meta #{ site } content=\"#{ meta_tags_container.site }\">\n" if site
+      result += "<meta #{ card } content=\"#{ meta_tags_container.card }\">\n" if card
 
       result
     end

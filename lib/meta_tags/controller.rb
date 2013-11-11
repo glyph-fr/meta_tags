@@ -4,14 +4,15 @@ module MetaTags
     include PageDataHelper
 
     module ClassMethods
-      attr_accessor :meta_tags, :model_name
+      attr_accessor :meta_tags, :model_name, :modifier_block
 
       def meta_tags_defaults options
         @meta_tags = Container.new(options)
       end
 
-      def meta_tags_from model_name
-        @model_name = model_name.to_s
+      def meta_tags_from model_name = nil, &block
+        @model_name = model_name && model_name.to_s
+        @modifier_block = block_given? ? block : nil
       end
     end
 
@@ -38,7 +39,8 @@ module MetaTags
       charset = options[:encoding] rescue 'utf-8'
 
       data = meta_tags_data
-      # Compulsory meta tags
+
+      # Required meta tags
       markup = <<-HTML
         <title>#{ data.title }</title>
         <meta charset="#{ charset }">

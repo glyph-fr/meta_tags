@@ -39,6 +39,7 @@ module MetaTags
           return instance.send(method).url if instance.respond_to?(method) && instance.send(method)
         end
       end
+
       return meta_tags_container.default_image
     end
 
@@ -46,28 +47,11 @@ module MetaTags
       @url = "#{request.original_url}"
     end
 
-    def process_type
-
-    end
-
-    def process_site_name
-
-    end
-
-    def process_site
-
-    end
-
-    def process_card
-
-    end
-
-    def process_keywords
-
-    end
-
-    def process_publisher
-
+    %w(
+      process_type process_site_name process_site process_card
+      process_keywordsprocess_publisher
+    ).each do |method|
+      define_method(method) do; end
     end
 
     private
@@ -76,13 +60,32 @@ module MetaTags
       !!params[:id]
     end
 
-    def action_i18n(label)
-      I18n.t("meta_tags.controller.#{ params[:controller] }.#{ params[:action] }.#{label}", default: "").presence
+    def action_i18n label
+      options = modifier_options.merge(default: "")
+      I18n.t(action_key(label), options).presence
+    end
+
+    def action_key label
+      key = %w(meta_tags controller)
+      key << params[:controller]
+      key << params[:action]
+      key << label
+      key.join(".")
     end
 
     def instance
       @instance ||= if self.class.model_name.presence
-        self.instance_variable_get "@#{ self.class.model_name }"
+        self.instance_variable_get("@#{ self.class.model_name }")
+      end
+    end
+
+    def modifier_options
+      @modifier_options ||= begin
+        if self.class.modifier_block
+          instance_eval(&self.class.modifier_block)
+        else
+          {}
+        end
       end
     end
   end

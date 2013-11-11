@@ -49,7 +49,7 @@ module MetaTags
 
     %w(
       process_type process_site_name process_site process_card
-      process_keywordsprocess_publisher
+      process_keywords process_publisher
     ).each do |method|
       define_method(method) do; end
     end

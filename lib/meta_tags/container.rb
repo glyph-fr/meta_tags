@@ -2,11 +2,26 @@ require "sanitize"
 
 module MetaTags
   class Container
-    attr_accessor :default_title, :default_description, :default_image,
-     :default_url, :default_site_name, :default_keywords, :default_type,
-     :title_changed, :description_changed, :image_changed, :url_changed,
-     :site_name_changed, :keywords_changed, :type_changed, :site_changed,
-     :default_site, :card_changed, :default_card, :default_publisher, :publisher_changed
+    attr_accessor :default_title,
+                  :default_description,
+                  :default_image,
+                  :default_url,
+                  :default_site_name,
+                  :default_keywords,
+                  :default_type,
+                  :default_site,
+                  :default_card,
+                  :default_publisher,
+                  :title_changed,
+                  :description_changed,
+                  :image_changed,
+                  :url_changed,
+                  :site_name_changed,
+                  :keywords_changed,
+                  :type_changed,
+                  :site_changed,
+                  :card_changed,
+                  :publisher_changed
 
     TAGS_LIST = %w(
       title description image url site_name keywords type site card publisher
@@ -37,9 +52,9 @@ module MetaTags
 
     def title=(value)
       @title_changed = true
-      if default_title == value
-        @title = default_title
-      else
+      if default_title == value || !MetaTags.keep_default_title_present
+        @title = value
+      elsif MetaTags.keep_default_title_present
         @title = "#{ value } - #{ default_title }"
       end
     end

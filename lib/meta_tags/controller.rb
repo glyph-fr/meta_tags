@@ -25,6 +25,8 @@ module MetaTags
       end
     end
 
+    attr_reader :instance
+
     def meta_tags_container
       @_meta_tags_container ||= ::ApplicationController.meta_tags
     end
@@ -32,6 +34,18 @@ module MetaTags
     def meta_tags_data
       process_meta_tags
       meta_tags_container
+    end
+
+    def meta_tags_for identifier
+      if identifier.kind_of?(ActiveRecord::Base)
+        @instance = identifier
+      elsif (list = MetaTags::List.where(identifier: identifier.to_s).first)
+        %w(title description keywords).each do |key|
+          if (value = list.send(:"meta_#{ key }").presence)
+            meta_tags_container.send(:"#{ key }=", value)
+          end
+        end
+      end
     end
 
     def meta_tags *providers
@@ -98,11 +112,13 @@ module MetaTags
     def process_meta_tags
       Container::TAGS_LIST.each do |label|
         next if meta_tags_container.send("#{ label }_changed?")
-        data = send("process_#{ label }")
+
+        data = process_meta_tag(label)
+
         if data
-          set_meta_tag label, data
+          set_meta_tag(label, data)
         else
-          set_meta_tag label, meta_tags_container.send("default_#{label}")
+          set_meta_tag(label, meta_tags_container.send("default_#{label}"))
         end
       end
     end

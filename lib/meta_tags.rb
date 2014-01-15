@@ -1,10 +1,6 @@
-require 'meta_tags/container'
-require 'meta_tags/page_data_helper'
-require 'meta_tags/controller'
-
+require "meta_tags/engine"
 
 module MetaTags
-
   mattr_accessor :title_methods
   @@title_methods = %w(title name)
 
@@ -14,11 +10,16 @@ module MetaTags
   mattr_accessor :image_methods
   @@image_methods = %w(image picture avatar)
 
-  def self.config
-    yield self if block_given?
+  mattr_accessor :keep_default_title_present
+  @@keep_default_title_present = true
+
+  class << self
+    def config
+      yield self if block_given?
+    end
+
+    def table_name_prefix
+      'meta_tags_'
+    end
   end
-
-  ActionController::Base.send(:include, Controller)
 end
-
-

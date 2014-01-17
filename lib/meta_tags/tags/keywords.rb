@@ -8,7 +8,7 @@ module MetaTags
       private
 
       def meta_taggable_keywords
-        instance && instance.meta_tags_list &&
+        instance && instance.meta_tagged? &&
           instance.meta_tags_list.meta_keywords.presence
       end
     end

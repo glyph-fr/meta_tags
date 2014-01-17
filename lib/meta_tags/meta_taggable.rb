@@ -13,5 +13,9 @@ module MetaTags
         attr_accessible :meta_tags_list_attributes
       end
     end
+
+    def meta_tagged?
+      meta_tags_list.presence
+    end
   end
 end

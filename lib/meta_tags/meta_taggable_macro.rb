@@ -8,8 +8,8 @@ module MetaTags
       end
     end
 
-    def meta_taggable?
-      respond_to?(:meta_tags_list)
+    def meta_tagged?
+      false
     end
   end
 end

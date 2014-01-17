@@ -5,7 +5,8 @@ module MetaTags
     included do
       has_one :meta_tags_list, class_name: "MetaTags::List",
         as: :meta_taggable, dependent: :destroy
-      accepts_nested_attributes_for :meta_tags_list
+      accepts_nested_attributes_for :meta_tags_list, allow_destroy: true,
+        reject_if: :all_blank
 
       # Ensure nested form can be handled for Rails < 4
       if respond_to?(:protected_attributes)

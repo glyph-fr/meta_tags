@@ -11,7 +11,6 @@ module MetaTags
                   :default_type,
                   :default_site,
                   :default_card,
-                  :default_publisher,
                   :title_changed,
                   :description_changed,
                   :image_changed,
@@ -21,10 +20,9 @@ module MetaTags
                   :type_changed,
                   :site_changed,
                   :card_changed,
-                  :publisher_changed
 
     TAGS_LIST = %w(
-      title description image url site_name keywords type site card publisher
+      title description image url site_name keywords type site card
     )
 
     TAGS_LIST.each do |label|

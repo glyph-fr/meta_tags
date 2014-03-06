@@ -58,7 +58,6 @@ module MetaTags
       markup = <<-HTML
         <title>#{ data.title }</title>
         <meta charset="#{ charset }">
-        <meta name="publisher" content="#{ data.publisher }">
         <meta name="keywords" content="#{ data.keywords }">
       HTML
 

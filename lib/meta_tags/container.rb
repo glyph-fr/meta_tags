@@ -19,7 +19,7 @@ module MetaTags
                   :keywords_changed,
                   :type_changed,
                   :site_changed,
-                  :card_changed,
+                  :card_changed
 
     TAGS_LIST = %w(
       title description image url site_name keywords type site card

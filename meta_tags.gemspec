@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "sanitize"
+  s.add_dependency "truncate_html"
 
   s.add_development_dependency "sqlite3"
 

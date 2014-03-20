@@ -1,6 +1,10 @@
+require "truncate_html"
+
 module MetaTags
   module Tags
     class Description < Base
+      include TruncateHtmlHelper
+
       def process!
         meta_taggable_description || instance_description || action_name
       end
@@ -15,7 +19,11 @@ module MetaTags
       def instance_description
         if instance
           MetaTags.description_methods.each do |method|
-            return instance.send(method) if instance.respond_to?(method)
+            if instance.respond_to?(method)
+              if (description = instance.send(method).presence)
+                return truncate_html(description, length: 250)
+              end
+            end
           end
 
           return nil

@@ -14,5 +14,9 @@ module MetaTags
       say "Installing default initializer template"
       copy_file "initializer.rb", "config/initializers/meta_tags.rb"
     end
+
+    def copy_migrations
+      rake "meta_tags:install:migrations"
+    end
   end
 end

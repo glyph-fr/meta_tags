@@ -8,5 +8,7 @@ module MetaTags
     belongs_to :meta_taggable, polymorphic: true
 
     validates_presence_of :name, :identifier, unless: :meta_taggable
+
+    scope :without_meta_taggable, -> { where(meta_taggable_id: nil)  }
   end
 end

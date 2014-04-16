@@ -16,7 +16,7 @@ module MetaTags
     end
 
     def copy_migrations
-      rake "meta_tags:install:migrations"
+      rake "meta_tags_railtie:install:migrations"
     end
   end
 end

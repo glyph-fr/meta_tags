@@ -26,25 +26,25 @@ module MetaTags
     )
 
     TAGS_LIST.each do |label|
-      class_eval <<-CLASS
-        def #{ label }
-          Sanitize.clean(@#{ label } || default_#{ label })
-        end
+      define_method(label) do
+        Sanitize.clean(
+          instance_variable_get(:"@#{ label }") || send(:"default_#{ label }")
+        )
+      end
 
-        def #{ label }=(value)
-          @#{ label }_changed = true
-          @#{ label } = value
-        end
+      define_method(:"#{ label }=") do |value|
+        instance_variable_set(:"@#{ label }_changed", true)
+        instance_variable_set(:"@#{ label }", value)
+      end
 
-        def #{ label }_changed?
-          !!@#{ label }_changed
-        end
-      CLASS
+      define_method(:"#{ label }_changed?") do
+        !!instance_variable_get(:"@#{ label }_changed")
+      end
     end
 
     def initialize options
       options.each do |label, value|
-        self.send("default_#{ label }=", value)
+        self.send(:"default_#{ label }=", value)
       end
     end
 
@@ -60,7 +60,7 @@ module MetaTags
 
     def reset_changed_status
       TAGS_LIST.each do |label|
-        self.send("#{ label }_changed=", false)
+        self.send(:"#{ label }_changed=", false)
       end
     end
   end

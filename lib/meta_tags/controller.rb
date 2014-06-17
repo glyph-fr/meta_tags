@@ -101,6 +101,7 @@ module MetaTags
       else
         {
           description: "name=\"description\""
+          image: "name=\"image\"",
         }
       end
 

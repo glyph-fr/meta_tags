@@ -56,8 +56,8 @@ module MetaTags
 
       # Required meta tags
       markup = <<-HTML
-<title>#{ data.title }</title>
-<meta charset="#{ charset }">
+        <meta charset="#{ charset }">
+        <title>#{ data.title }</title>
       HTML
 
       if data.keywords.presence
@@ -80,6 +80,7 @@ module MetaTags
 
     def markup_from_provider provider=:default
       tags = case provider.to_sym
+
       when :open_graph
         {
           title: "property=\"og:title\"",
@@ -101,7 +102,6 @@ module MetaTags
       else
         {
           description: "name=\"description\"",
-          image: "name=\"image\""
         }
       end
 

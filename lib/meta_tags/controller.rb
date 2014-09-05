@@ -102,7 +102,6 @@ module MetaTags
       else
         {
           description: "name=\"description\"",
-          image: "name=\"og:image\""
         }
       end
 

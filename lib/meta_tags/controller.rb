@@ -56,8 +56,8 @@ module MetaTags
 
       # Required meta tags
       markup = <<-HTML
-<title>#{ data.title }</title>
-<meta charset="#{ charset }">
+        <meta charset="#{ charset }">
+        <title>#{ data.title }</title>
       HTML
 
       if data.keywords.presence
@@ -80,14 +80,15 @@ module MetaTags
 
     def markup_from_provider provider=:default
       tags = case provider.to_sym
+
       when :open_graph
         {
-          title: "property=\"og:title\"",
-          description: "property=\"og:description\"",
-          image: "property=\"og:image\"",
+          title: "name=\"og:title\"",
+          description: "name=\"og:description\"",
+          image: "name=\"og:image\"",
           type: "property=\"og:type\"",
-          url: "property=\"og:url\"",
-          site_name: "property=\"og:site_name\""
+          url: "name=\"og:url\"",
+          site_name: "name=\"og:site_name\""
         }
       when :twitter
         {
@@ -100,7 +101,7 @@ module MetaTags
         }
       else
         {
-          description: "name=\"description\""
+          description: "name=\"description\"",
         }
       end
 

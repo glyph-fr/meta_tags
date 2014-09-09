@@ -14,6 +14,8 @@ module MetaTags
               return instance.send(method).url
             end
           end
+
+          nil
         end
       end
     end

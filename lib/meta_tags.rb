@@ -10,6 +10,9 @@ module MetaTags
   mattr_accessor :image_methods
   @@image_methods = %w(image picture avatar)
 
+  mattr_accessor :separator
+  @@separator = '-'
+
   mattr_accessor :keep_default_title_present
   @@keep_default_title_present = true
 

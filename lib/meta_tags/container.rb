@@ -53,7 +53,7 @@ module MetaTags
       if default_title == value || !MetaTags.keep_default_title_present
         @title = value
       elsif MetaTags.keep_default_title_present
-        @title = "#{ value } - #{ default_title }"
+        @title = "#{ value } #{ MetaTags.separator } #{ default_title }"
       end
     end
 

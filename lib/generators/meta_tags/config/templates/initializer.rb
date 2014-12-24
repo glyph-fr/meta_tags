@@ -14,12 +14,16 @@ MetaTags.config do |config|
   #
   # config.image_methods = %w(image picture avatar)
 
-  # When setting a title, keep original title after :
+  # When setting a title, keep original title after and configure separator :
   #
-  # Example : If you set the default title to "My Shop" and, on the home page
-  #   set the title to "Home", you'll end up with a title of : "Home - My Shop"
+  # Example : If you set the default title to "My Shop" and separator to '-', 
+  #   on the home page set the title to "Home", you'll end up with a title of :
+  #   "Home - My Shop"
   #
   # Defaults to true
   #
   # config.keep_default_title_present = false
+  
+  # Default separator to '-'
+  # config.separator = '-'
 end

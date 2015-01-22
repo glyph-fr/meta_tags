@@ -30,7 +30,7 @@ module MetaTags
         return controller.instance if controller.instance
 
         @instance ||= if model_name
-          controller.instance_variable_get("@#{ model_name }")
+          controller.instance_variable_get(:"@#{ model_name }")
         end
       end
 

@@ -2,15 +2,15 @@ module MetaTags
   module Controller
     extend ActiveSupport::Concern
     include PageDataHelper
-
+  
     module ClassMethods
       attr_accessor :meta_tags, :model_name, :modifier_block
 
-      def meta_tags_defaults options
+      def meta_tags_defaults(options)
         @meta_tags = Container.new(options)
       end
 
-      def meta_tags_from model_name = nil, &block
+      def meta_tags_from(model_name = nil, &block)
         @model_name = model_name && model_name.to_s
         @modifier_block = block_given? ? block : nil
       end
@@ -36,7 +36,7 @@ module MetaTags
       meta_tags_container
     end
 
-    def meta_tags_for identifier
+    def meta_tags_for(identifier)
       if identifier.kind_of?(ActiveRecord::Base)
         @instance = identifier
       elsif (list = MetaTags::List.where(identifier: identifier.to_s).first)
@@ -48,7 +48,7 @@ module MetaTags
       end
     end
 
-    def meta_tags *providers
+    def meta_tags(*providers)
       options = providers.pop if providers.last.is_a? Hash
       charset = options[:encoding] rescue 'utf-8'
 
@@ -78,9 +78,8 @@ module MetaTags
       markup.html_safe
     end
 
-    def markup_from_provider provider=:default
+    def markup_from_provider(provider = :default)
       tags = case provider.to_sym
-
       when :open_graph
         {
           title: "name=\"og:title\"",
@@ -116,17 +115,13 @@ module MetaTags
       Container::TAGS_LIST.each do |label|
         next if meta_tags_container.send(:"#{ label }_changed?")
 
-        data = process_meta_tag(label)
-
-        if data
+        if (data = process_meta_tag(label))
           set_meta_tag(label, data)
-        else
-          set_meta_tag(label, meta_tags_container.send(:"default_#{label}"))
         end
       end
     end
 
-    def set_meta_tag key, value, options = {}
+    def set_meta_tag(key, value, options = {})
       if value.presence && !options[:force]
         meta_tags_container.send("#{ key }=", value)
       end

@@ -33,6 +33,7 @@ module MetaTags
       end
 
       define_method(:"#{ label }=") do |value|
+        raise if label == "title"
         instance_variable_set(:"@#{ label }_changed", true)
         instance_variable_set(:"@#{ label }", value)
       end

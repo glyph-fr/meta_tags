@@ -29,7 +29,7 @@ module MetaTags
       define_method(label) do
         Sanitize.clean(
           instance_variable_get(:"@#{ label }") || send(:"default_#{ label }")
-        )
+        ).gsub("\"", "&quot;")
       end
 
       define_method(:"#{ label }=") do |value|

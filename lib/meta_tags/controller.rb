@@ -82,12 +82,12 @@ module MetaTags
       tags = case provider.to_sym
       when :open_graph
         {
-          title: "name=\"og:title\"",
-          description: "name=\"og:description\"",
-          image: "name=\"og:image\"",
+          title: "property=\"og:title\"",
+          description: "property=\"og:description\"",
+          image: "property=\"og:image\"",
           type: "property=\"og:type\"",
-          url: "name=\"og:url\"",
-          site_name: "name=\"og:site_name\""
+          url: "property=\"og:url\"",
+          site_name: "property=\"og:site_name\""
         }
       when :twitter
         {

@@ -1,7 +1,4 @@
-# encoding: utf-8
-
 MetaTags.config do |config|
-
   # Default title methods to be checked for title
   #
   # config.title_methods = %w(title name)

@@ -1,7 +1,7 @@
 module MetaTags
   module Tags
     class Url < Base
-      def process!
+      def value
         controller.request.original_url
       end
     end

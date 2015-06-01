@@ -1,6 +1,17 @@
 require "meta_tags/engine"
 
 module MetaTags
+  extend ActiveSupport::Autoload
+
+  autoload :Controller
+  autoload :MetaTaggable
+  autoload :MetaTaggableMacro
+  autoload :Renderer
+  autoload :Store
+  autoload :Tags
+  autoload :Vendors
+  autoload :ViewHelpers
+
   mattr_accessor :title_methods
   @@title_methods = %w(title name)
 
@@ -10,8 +21,8 @@ module MetaTags
   mattr_accessor :image_methods
   @@image_methods = %w(image picture avatar)
 
-  mattr_accessor :keep_default_title_present
-  @@keep_default_title_present = true
+  mattr_accessor :defaults
+  @@defaults = nil
 
   class << self
     def config

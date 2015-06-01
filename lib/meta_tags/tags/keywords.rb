@@ -1,7 +1,7 @@
 module MetaTags
   module Tags
     class Keywords < Base
-      def process!
+      def value
         meta_taggable_keywords
       end
 

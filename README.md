@@ -191,13 +191,13 @@ MetaTags::List.create!(name: 'Home page', identifier: 'home')
 In your admin panel, you can list all non-resource meta tags lists with the
 `without_meta_taggable` scope, to create a dedicated admin panel :
 
-```
+```ruby
 @meta_tags = MetaTags::List.without_meta_taggable
 ```
 
 Then in your controllers, retrieve them with their identifier :
 
-```
+```ruby
 class HomeController < ApplicationController
   def index
     set_meta_tags_from_list(:home)

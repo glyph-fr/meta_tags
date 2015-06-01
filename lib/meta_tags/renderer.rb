@@ -1,5 +1,7 @@
 module MetaTags
   class Renderer
+    LINE_SEPARATOR = "\n"
+
     attr_reader :template, :vendors
 
     delegate :content_tag, :tag, to: :template
@@ -11,8 +13,12 @@ module MetaTags
 
     def render
       [
-        title_tag, charset_tag, description_tag, keywords_tag, vendor_tags
-      ].join.html_safe
+        charset_tag,
+        title_tag,
+        description_tag,
+        keywords_tag,
+        vendor_tags
+      ].compact.join(LINE_SEPARATOR).html_safe
     end
 
     private
@@ -53,7 +59,7 @@ module MetaTags
         end
       end
 
-      vendor_tags.join
+      vendor_tags.join(LINE_SEPARATOR)
     end
 
     def meta_tags

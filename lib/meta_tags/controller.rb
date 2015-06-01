@@ -16,10 +16,14 @@ module MetaTags
       if identifier.kind_of?(ActiveRecord::Base)
         @instance = identifier
       elsif (list = MetaTags::List.where(identifier: identifier.to_s).first)
-        [:title, :description, :keywords].each do |tag_name|
-          if (value = list.send(:"meta_#{ tag_name }").presence)
-            set_meta_tag(tag_name, value)
-          end
+        set_meta_tags_from_list(list)
+      end
+    end
+
+    def set_meta_tags_from_list(list)
+      [:title, :description, :keywords].each do |tag_name|
+        if (value = list.send(:"meta_#{ tag_name }")).present?
+          set_meta_tag(tag_name, value)
         end
       end
     end

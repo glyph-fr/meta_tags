@@ -5,18 +5,23 @@ MetaTags.config do |config|
 
   # Default decsription methods to be checked for description
   #
-  # config.description_methods = %w(description desc)
+  # config.description_methods = %w(description desc content)
 
   # Default image methods to be checked for image
   #
   # config.image_methods = %w(image picture avatar)
 
-  # When setting a title, keep original title after :
+  # Configure the default meta tags that will be used when no source could
+  # fill the defined meta.
   #
-  # Example : If you set the default title to "My Shop" and, on the home page
-  #   set the title to "Home", you'll end up with a title of : "Home - My Shop"
+  # One good thing is to configure the title here to avoid empty <title> tags.
+  # But you can configure any supported meta tag here.
   #
-  # Defaults to true
+  # Note that you'll need to pass a proc or lambda, and that it'll be executed
+  # in the context of the controller.
+  # This allows for example to set I18n aware defaults.
   #
-  # config.keep_default_title_present = false
+  # config.defaults = lambda do
+  #   { title: 'My website' }
+  # end
 end

@@ -12,19 +12,20 @@ module MetaTags
 
     protected
 
-    def meta_tags_for(identifier)
-      if identifier.kind_of?(ActiveRecord::Base)
-        @instance = identifier
-      elsif (list = MetaTags::List.where(identifier: identifier.to_s).first)
-        set_meta_tags_from_list(list)
-      end
+    def meta_tags_from(resource)
+      @instance = resource
     end
 
     def set_meta_tags_from_list(list)
-      [:title, :description, :keywords].each do |tag_name|
-        if (value = list.send(:"meta_#{ tag_name }")).present?
-          set_meta_tag(tag_name, value)
+      if list.kind_of?(MetaTags::List)
+        [:title, :description, :keywords].each do |tag_name|
+          if (value = list.send(:"meta_#{ tag_name }")).present?
+            set_meta_tag(tag_name, value)
+          end
         end
+      else
+        list = MetaTags::List.where(identifier: list.to_s).first
+        set_meta_tags_from_list(list) if list
       end
     end
 

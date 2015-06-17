@@ -1,6 +1,6 @@
 module MetaTags
   module Vendors
-    class Twitter
+    class Twitter < MetaTags::Vendors::Base
       def tags
         [:title, :description, :image, :url, :site, :card]
       end

@@ -1,6 +1,8 @@
 module MetaTags
   module Vendors
     class Base
+      include ActionView::Helpers::TagHelper
+
       attr_reader :template
 
       def initialize(template)

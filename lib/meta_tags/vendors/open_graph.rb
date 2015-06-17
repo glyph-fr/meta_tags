@@ -1,6 +1,6 @@
 module MetaTags
   module Vendors
-    class OpenGraph
+    class OpenGraph < MetaTags::Vendors::Base
       def tags
         [:title, :description, :image, :type, :url, :site_name]
       end

@@ -1,7 +1,7 @@
 module MetaTags
   module Tags
     class Title < Base
-      def process!
+      def value
         meta_taggable_title || instance_title || action_name || model_name_translation
       end
 

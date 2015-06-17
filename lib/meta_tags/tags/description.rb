@@ -5,7 +5,7 @@ module MetaTags
     class Description < Base
       include TruncateHtmlHelper
 
-      def process!
+      def value
         meta_taggable_description || instance_description || action_name
       end
 

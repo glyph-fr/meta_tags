@@ -1,7 +1,7 @@
 module MetaTags
   module Tags
     class Image < Base
-      def process!
+      def value
         instance_image
       end
 

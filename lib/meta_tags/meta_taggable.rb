@@ -17,5 +17,11 @@ module MetaTags
     def meta_tagged?
       meta_tags_list.presence
     end
+
+    module ClassMethods
+      def meta_taggable?
+        true
+      end
+    end
   end
 end

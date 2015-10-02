@@ -10,7 +10,7 @@ module MetaTags
       end
 
       def render(key, value)
-        tag(:meta, key_name => attribute_name_for(key), value: value)
+        tag(:meta, key_name => attribute_name_for(key), content: value)
       end
 
       protected

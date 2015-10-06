@@ -35,13 +35,13 @@ module MetaTags
 
     def description_tag
       if (description = meta_tags.description).present?
-        tag(:meta, name: 'description', value: description)
+        tag(:meta, name: 'description', content: description)
       end
     end
 
     def keywords_tag
       if (keywords = meta_tags.keywords).present?
-        tag(:meta, name: 'keywords', value: keywords)
+        tag(:meta, name: 'keywords', content: keywords)
       end
     end
 
